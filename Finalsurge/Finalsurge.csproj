@@ -8,6 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Runsettings\allureConfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="allureConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Bogus" Version="34.0.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
     <PackageReference Include="NLog" Version="5.2.2" />
@@ -30,6 +40,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Runsettings\appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
