@@ -4,6 +4,7 @@ using BusinessObjects.Pages;
 using Core;
 using NUnit.Allure.Attributes;
 using Allure.Commons;
+using OpenQA.Selenium;
 
 namespace Finalsurge.Tests
 {
@@ -22,6 +23,8 @@ namespace Finalsurge.Tests
             var user = UserBuilder.GetStandartUser();
 
             new LoginPage().OpenPage().TryToLogin(user);
+
+            Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.ClassName("user-info")));
         }
 
         [Test]
@@ -56,6 +59,25 @@ namespace Finalsurge.Tests
             new LoginPage().OpenPage().TryToLogin(user);
 
             Assert.That(new LoginPage().GetMessage(), Is.EqualTo("Invalid login credentials. Please try again."));
+        }
+
+        [Test]
+        [AllureDescription("Logout test")]
+        [AllureOwner("Anna Samchenko")]
+        [AllureSeverity(SeverityLevel.normal)]
+        [AllureTag("Smoke")]
+        [AllureSuite("Authorization tests")]
+        [AllureTms("TMS-4")]
+        [AllureIssue("Jira-1")]
+        public void LogoutTest()
+        {
+            var user = UserBuilder.GetStandartUser();
+
+            new LoginPage().OpenPage().TryToLogin(user);
+            Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.ClassName("user-info")));
+
+            new LoginPage().LogOut();
+            Assert.That(new LoginPage().GetMessage(), Is.EqualTo("You have been successfully logged out of the system."));
         }
     }
 }

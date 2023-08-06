@@ -51,5 +51,15 @@ namespace Core
             Actions actions = new Actions(driver);
             actions.DragAndDrop(source, target).Perform();
         }
+
+        public void AcceptAllert()
+        {
+            driver.SwitchTo().Alert().Accept();
+        }
+
+        public void SwitchToFrame(string id)
+        {
+            driver.SwitchTo().Frame(id);
+        }
     }
 }

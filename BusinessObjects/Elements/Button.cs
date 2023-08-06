@@ -8,7 +8,7 @@ namespace BusinessObjects.Elements
         {
         }
 
-        public Button(string value) : base($"//input[@name='{value}']")
+        public Button(string value) : base($"//input[@value='{value}']")
         {
         }
     }

@@ -9,8 +9,8 @@ namespace BusinessObjects.Pages
 {
     public class LoginPage
     {
-        private Input userEmailInput = new(By.XPath("//input[@name='login_name']"));
-        private Input userPasswordInput = new(By.XPath("//input[@name='login_password']"));
+        private Input userEmailInput = new("login_name");
+        private Input userPasswordInput = new("login_password");
         private Button loginButton = new(By.XPath("//button[@type='submit']"));
         private AlertMessage message = new(By.ClassName("alert"));
 
@@ -36,17 +36,34 @@ namespace BusinessObjects.Pages
         }
 
         [AllureStep]
-        public string GetMessage()
-        {
-            logger.Info("Verify error message for incorrect data for login");
-            return message.GetElement().Text;
-        }
-
         public CalendarPage OpenCalendarPage()
         {
             logger.Info("Navigate to Calendar");
             new Button(By.XPath("//*[@href='Calendar.cshtml'][@class='ptip_s']")).GetElement().Click();
             return new CalendarPage();
+        }
+
+        [AllureStep]
+        public CaloricCalculatorFrame OpenCaloricCalculatorPage()
+        {
+            logger.Info("Navigate to daily caloric needs Calculator");
+            new Button(By.XPath("//*[@data-reveal-id='OtherCalc']")).GetElement().Click();
+            return new CaloricCalculatorFrame();
+        }
+
+        [AllureStep]
+        public string GetMessage()
+        {
+            var mes = message.GetElement().Text;
+            logger.Info($"Alert message: {mes}");
+            return mes;
+        }
+
+        [AllureStep]
+        public void LogOut()
+        {
+            logger.Info("Logout");
+            new Button(By.XPath("//*[@href='logout.cshtml']")).GetElement().Click();
         }
     }
 }
