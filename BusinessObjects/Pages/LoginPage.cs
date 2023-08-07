@@ -12,7 +12,7 @@ namespace BusinessObjects.Pages
         private Input userEmailInput = new("login_name");
         private Input userPasswordInput = new("login_password");
         private Button loginButton = new(By.XPath("//button[@type='submit']"));
-        private AlertMessage message = new(By.ClassName("alert"));
+        private AlertMessage alertMessage = new();
 
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -52,9 +52,19 @@ namespace BusinessObjects.Pages
         }
 
         [AllureStep]
+        public PaceCalculatorFrame OpenPaceCalculatorPage()
+        {
+            logger.Info("Navigate to Pace Calculator");
+            new Button(By.XPath("//*[@data-reveal-id='OtherCalc']")).GetElement().Click();
+            Browser.Instance.SwitchToFrame("OtherCalciFrame");
+            new Button(By.XPath("//a[text()='Pace Calculator']")).GetElement().Click();
+            return new PaceCalculatorFrame();
+        }
+
+        [AllureStep]
         public string GetMessage()
         {
-            var mes = message.GetElement().Text;
+            var mes = alertMessage.GetElement().Text;
             logger.Info($"Alert message: {mes}");
             return mes;
         }
