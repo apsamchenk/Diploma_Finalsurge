@@ -23,9 +23,9 @@ namespace BusinessObjects.Elements
             WebDriver.FindElement(By.XPath($"//*[@class='{option}'][@data-day='{day}']")).Click();
         }
 
-        public void SelectOptionFromActivityMenu(string option)
+        public void SelectOptionFromActivityMenu(string day, string option)
         {
-            WebDriver.FindElement(By.XPath($"//*[@class='{option}']")).Click();
+            WebDriver.FindElement(By.XPath($"//*[@data-day='{day}']//*[@class='{option}']")).Click();
         }
     }
 }

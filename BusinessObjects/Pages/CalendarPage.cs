@@ -51,7 +51,7 @@ namespace BusinessObjects.Pages
             existingActivity = new(day, month, year, title);
             activityActions = new(day, month, year, title);
             existingActivity.GetElement().Click();
-            activityActions.SelectOptionFromActivityMenu("quick-copy");
+            activityActions.SelectOptionFromActivityMenu(day, "quick-copy");
             return new QuickAddForm();
         }
 
@@ -62,7 +62,7 @@ namespace BusinessObjects.Pages
             existingActivity = new(day, month, year, title);
             activityActions = new(day, month, year, title);
             existingActivity.GetElement().Click();
-            activityActions.SelectOptionFromActivityMenu("quick-delete");
+            activityActions.SelectOptionFromActivityMenu(day,"quick-delete");
             return new DeleteActivityModal();
         }
     }

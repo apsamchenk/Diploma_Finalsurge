@@ -16,6 +16,7 @@ namespace BusinessObjects.Pages
         public void ConfirmDelete()
         {
             logger.Info("Confirm activity delete");
+            Thread.Sleep(2000);
             confirmDeleteButton.GetElement().Click();
         }
 
@@ -23,6 +24,7 @@ namespace BusinessObjects.Pages
         public void CancelDelete() 
         {
             logger.Info("Cancel activity delete");
+            Thread.Sleep(2000);
             cancelDeleteButton.GetElement().Click();
         }
     }
