@@ -32,6 +32,6 @@ steps:
   inputs:
     testSelector: 'testAssemblies'
     testAssemblyVer2: |
-      **\*test*.dll
+      **\Finalsurge.dll
       !**\*TestAdapter.dll
       !**\obj\**
