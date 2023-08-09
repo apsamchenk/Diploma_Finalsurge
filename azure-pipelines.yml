@@ -26,7 +26,6 @@ steps:
   inputs:
     solution: '**\*.sln'
     vsVersion: '17.0'
-    configuration: '$(BuildConfiguration)'
 
 - task: DotNetCoreCLI@2
   displayName: 'Run tests'
