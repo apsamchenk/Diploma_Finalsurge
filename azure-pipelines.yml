@@ -27,7 +27,7 @@ steps:
     solution: '**\*.sln'
     vsVersion: '17.0'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Run tests'
+- task: VSTest@3
+  displayName: 'VsTest - testAssemblies'
   inputs:
-    command: 'test'
+    testAssemblyVer2: '**\Tests.dll'
