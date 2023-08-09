@@ -10,17 +10,23 @@ pool:
   name: 'FinalsurgePool'
 
 steps:
+- task: NuGetToolInstaller@0
+  displayName: 'Use NuGet 6.x'
+  inputs:
+    versionSpec: 6.x
+
 - task: NuGetCommand@2
   displayName: 'Restore nuget package for solution'
   inputs:
     command: 'restore'
     restoreSolution: '**/*.sln'
 
-- task: DotNetCoreCLI@2
+- task: VSBuild@1
   displayName: 'Build solution'
   inputs:
-    command: 'build'
-    arguments: '--configuration Debug'
+    solution: '**\*.sln'
+    vsVersion: '17.0'
+    configuration: '$(BuildConfiguration)'
 
 - task: DotNetCoreCLI@2
   displayName: 'Run tests'
