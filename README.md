@@ -78,7 +78,7 @@ In Visual Studio you can use Test Explorer for tests running
 If you want to run tests from command line, use the following command:
 
 ```bash
-  dornet test
+  dotnet test
 ```
 
 
