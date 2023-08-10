@@ -5,6 +5,7 @@ using Core;
 using Allure.Commons;
 using NUnit.Allure.Attributes;
 using OpenQA.Selenium;
+using BusinessObjects.Steps;
 
 namespace Finalsurge.Tests
 {
@@ -22,7 +23,9 @@ namespace Finalsurge.Tests
         {
             var user = UserBuilder.GetStandartUser();
 
-            new LoginPage().OpenPage().TryToLogin(user).OpenCalendarPage().QuickAddByCellMenu("5", "8", "2023").FillActivityFields("Run","Run activity","New run activity");
+            UISteps.GoToCalendar(user).
+                QuickAddByCellMenu("5", "8", "2023").
+                FillActivityFields("Run", "Run activity", "New run activity");
 
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//td[@data-day='5'][@data-month='8'][@data-year='2023']//*[contains(text(), 'Run')]")));
         }
@@ -39,7 +42,9 @@ namespace Finalsurge.Tests
         {
             var user = UserBuilder.GetStandartUser();
 
-            new LoginPage().OpenPage().TryToLogin(user).OpenCalendarPage().QuickAddByButton().FillActivityFields("Swim", "Swim activity", "New swim activity");
+            UISteps.GoToCalendar(user).
+                QuickAddByButton().
+                FillActivityFields("Swim", "Swim activity", "New swim activity");
 
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath($"//td[@data-day='{DateTime.Today.Day}'][@data-month='{DateTime.Today.Month}'][@data-year='{DateTime.Today.Year}']//*[contains(text(), 'Swim')]")));
         }
@@ -56,10 +61,14 @@ namespace Finalsurge.Tests
         {
             var user = UserBuilder.GetStandartUser();
 
-            new LoginPage().OpenPage().TryToLogin(user).OpenCalendarPage().QuickAddByCellMenu("6", "8", "2023").FillActivityFields("Walk", "Walk activity", "New walk activity");
+            UISteps.GoToCalendar(user).
+                QuickAddByCellMenu("6", "8", "2023").
+                FillActivityFields("Walk", "Walk activity", "New walk activity");
+            
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//td[@data-day='6'][@data-month='8'][@data-year='2023']//*[contains(text(), 'Walk')]")));
 
             new CalendarPage().MoveActivity("6", "8", "2023", "Walk", "10", "8", "2023");
+
             Assert.Throws<NoSuchElementException>(() => Browser.Instance.Driver.FindElement(By.XPath("//td[@data-day='6'][@data-month='8'][@data-year='2023']//*[contains(text(), 'Walk')]")));
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//td[@data-day='10'][@data-month='8'][@data-year='2023']//*[contains(text(), 'Walk')]")));
         }
@@ -76,10 +85,14 @@ namespace Finalsurge.Tests
         {
             var user = UserBuilder.GetStandartUser();
 
-            new LoginPage().OpenPage().TryToLogin(user).OpenCalendarPage().QuickAddByCellMenu("12", "8", "2023").FillActivityFields("Other", "Other activity", "New other activity");
+            UISteps.GoToCalendar(user).
+                QuickAddByCellMenu("12", "8", "2023").
+                FillActivityFields("Other", "Other activity", "New other activity");
+
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//td[@data-day='12'][@data-month='8'][@data-year='2023']//*[contains(text(), 'Other')]")));
 
             new CalendarPage().CopyExistingActivity("12", "8", "2023", "Other").FillCopyFiels("8/15/2023");
+
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//td[@data-day='12'][@data-month='8'][@data-year='2023']//*[contains(text(), 'Other')]")));
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//td[@data-day='15'][@data-month='8'][@data-year='2023']//*[contains(text(), 'Other')]")));
         }

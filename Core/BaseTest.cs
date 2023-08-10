@@ -26,7 +26,7 @@ namespace Core
                 byte[] bytes = screenshot.AsByteArray;
                 allure.AddAttachment("Screenshot", "image/png", bytes);
             }
-            //Browser.Instance.CloseBrowser();
+            Browser.Instance.CloseBrowser();
         }
     }
 }

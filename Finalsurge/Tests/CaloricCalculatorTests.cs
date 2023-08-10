@@ -6,6 +6,7 @@ using BusinessObjects.Enums;
 using OpenQA.Selenium;
 using Allure.Commons;
 using NUnit.Allure.Attributes;
+using BusinessObjects.Steps;
 
 namespace Finalsurge.Tests
 {
@@ -23,10 +24,7 @@ namespace Finalsurge.Tests
         {
             var user = UserBuilder.GetStandartUser();
 
-            new LoginPage().
-                OpenPage().
-                TryToLogin(user).
-                OpenCaloricCalculatorPage().
+            UISteps.GoToCaloricCalculator(user).
                 FillCaloricCalcFields("65", "170", "30", "5", WeightType.kg, HeightType.centimeters, GenderType.female, DistanceType.km);
 
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//table//td[contains(text(), '2,009 kCal')]")));
@@ -44,10 +42,7 @@ namespace Finalsurge.Tests
         {
             var user = UserBuilder.GetStandartUser();
 
-            new LoginPage().
-                OpenPage().
-                TryToLogin(user).
-                OpenCaloricCalculatorPage().
+            UISteps.GoToCaloricCalculator(user).
                 FillCaloricCalcFields("65", "170", "30", "5", WeightType.kg, HeightType.centimeters, GenderType.male, DistanceType.km);
 
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//table//td[contains(text(), '2,208 kCal')]")));
@@ -65,10 +60,7 @@ namespace Finalsurge.Tests
         {
             var user = UserBuilder.GetStandartUser();
 
-            new LoginPage().
-                OpenPage().
-                TryToLogin(user).
-                OpenCaloricCalculatorPage().
+            UISteps.GoToCaloricCalculator(user).
                 FillCaloricCalcFields("", "170", "30", "5", WeightType.kg, HeightType.centimeters, GenderType.female, DistanceType.km);
 
             Assert.That(new CaloricCalculatorFrame().GetMessage(), Is.EqualTo("×\r\nPlease fix the following errors:\r\n*Please enter a value for Weight."));

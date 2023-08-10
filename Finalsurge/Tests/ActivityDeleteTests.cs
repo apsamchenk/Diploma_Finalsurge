@@ -5,6 +5,7 @@ using Core;
 using Allure.Commons;
 using NUnit.Allure.Attributes;
 using OpenQA.Selenium;
+using BusinessObjects.Steps;
 
 namespace Finalsurge.Tests
 {
@@ -22,10 +23,16 @@ namespace Finalsurge.Tests
         {
             var user = UserBuilder.GetStandartUser();
 
-            new LoginPage().OpenPage().TryToLogin(user).OpenCalendarPage().QuickAddByCellMenu("20", "8", "2023").FillActivityFields("Bike", "New activity", "New bike activity");
+            UISteps.GoToCalendar(user).
+                QuickAddByCellMenu("20", "8", "2023").
+                FillActivityFields("Bike", "New activity", "New bike activity");
+
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//td[@data-day='20'][@data-month='8'][@data-year='2023']//*[contains(text(), 'Bike')]")));
             
-            new CalendarPage().DeleteActivity("20", "8", "2023", "Bike").ConfirmDelete();
+            new CalendarPage().
+                DeleteActivity("20", "8", "2023", "Bike").
+                ConfirmDelete();
+
             Thread.Sleep(1000);
             Assert.Throws<NoSuchElementException>(() => Browser.Instance.Driver.FindElement(By.XPath("//td[@data-day='20'][@data-month='8'][@data-year='2023']//*[contains(text(), 'Bike')]")));
         }
@@ -42,10 +49,16 @@ namespace Finalsurge.Tests
         {
             var user = UserBuilder.GetStandartUser();
 
-            new LoginPage().OpenPage().TryToLogin(user).OpenCalendarPage().QuickAddByCellMenu("25", "8", "2023").FillActivityFields("Walk", "New activity", "New walk activity");
+            UISteps.GoToCalendar(user).
+                QuickAddByCellMenu("25", "8", "2023").
+                FillActivityFields("Walk", "New activity", "New walk activity");
+
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//td[@data-day='25'][@data-month='8'][@data-year='2023']//*[contains(text(), 'Walk')]")));
             
-            new CalendarPage().DeleteActivity("25", "8", "2023", "Walk").CancelDelete();
+            new CalendarPage().
+                DeleteActivity("25", "8", "2023", "Walk").
+                CancelDelete();
+
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//td[@data-day='25'][@data-month='8'][@data-year='2023']//*[contains(text(), 'Walk')]")));
         }
     }

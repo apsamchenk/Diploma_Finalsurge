@@ -6,6 +6,7 @@ using BusinessObjects.Enums;
 using OpenQA.Selenium;
 using Allure.Commons;
 using NUnit.Allure.Attributes;
+using BusinessObjects.Steps;
 
 namespace Finalsurge.Tests
 {
@@ -23,10 +24,7 @@ namespace Finalsurge.Tests
         {
             var user = UserBuilder.GetStandartUser();
 
-            new LoginPage().
-                OpenPage().
-                TryToLogin(user).
-                OpenPaceCalculatorPage().
+            UISteps.GoToPaceCalculator(user).
                 FillPaceCalcFieldsWithDistType("2", DistanceType.km, "1", "30","");
 
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//table//td[contains(text(), '45:00 min/km')]")));
@@ -44,10 +42,7 @@ namespace Finalsurge.Tests
         {
             var user = UserBuilder.GetStandartUser();
 
-            new LoginPage().
-                OpenPage().
-                TryToLogin(user).
-                OpenPaceCalculatorPage().
+            UISteps.GoToPaceCalculator(user).
                 FillPaceCalcFieldsWithRaceDist("Marathon", "4", "0", "30");
             
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//table//td[contains(text(), '0:34 min/100m')]")));
@@ -65,10 +60,7 @@ namespace Finalsurge.Tests
         {
             var user = UserBuilder.GetStandartUser();
 
-            new LoginPage().
-                OpenPage().
-                TryToLogin(user).
-                OpenPaceCalculatorPage().
+            UISteps.GoToPaceCalculator(user).
                 FillPaceCalcFieldsWithDistType("", DistanceType.km, "1", "30", "");
 
             Assert.That(new PaceCalculatorFrame().GetMessage(), Is.EqualTo("×\r\nPlease fix the following errors:\r\n*Please enter a value for Distance."));

@@ -5,6 +5,7 @@ using Core;
 using NUnit.Allure.Attributes;
 using Allure.Commons;
 using OpenQA.Selenium;
+using BusinessObjects.Steps;
 
 namespace Finalsurge.Tests
 {
@@ -22,7 +23,7 @@ namespace Finalsurge.Tests
         {
             var user = UserBuilder.GetStandartUser();
 
-            new LoginPage().OpenPage().TryToLogin(user);
+            UISteps.Login(user);
 
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.ClassName("user-info")));
         }
@@ -39,7 +40,7 @@ namespace Finalsurge.Tests
         {
             var user = UserBuilder.GetRandomUser();
 
-            new LoginPage().OpenPage().TryToLogin(user);
+            UISteps.Login(user);
 
             Assert.That(new LoginPage().GetMessage(), Is.EqualTo("Invalid login credentials. Please try again."));
         }
@@ -56,7 +57,7 @@ namespace Finalsurge.Tests
         {
             var user = UserBuilder.GetRandomPasswordUser();
 
-            new LoginPage().OpenPage().TryToLogin(user);
+            UISteps.Login(user);
 
             Assert.That(new LoginPage().GetMessage(), Is.EqualTo("Invalid login credentials. Please try again."));
         }
@@ -73,7 +74,7 @@ namespace Finalsurge.Tests
         {
             var user = UserBuilder.GetStandartUser();
 
-            new LoginPage().OpenPage().TryToLogin(user);
+            UISteps.Login(user);
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.ClassName("user-info")));
 
             new LoginPage().LogOut();
