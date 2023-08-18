@@ -3,7 +3,6 @@ using BusinessObjects;
 using BusinessObjects.Pages;
 using Core;
 using BusinessObjects.Enums;
-using OpenQA.Selenium;
 using Allure.Commons;
 using NUnit.Allure.Attributes;
 using BusinessObjects.Steps;
@@ -27,7 +26,7 @@ namespace Finalsurge.Tests
             UISteps.GoToPaceCalculator(user).
                 FillPaceCalcFieldsWithDistType("2", DistanceType.km, "1", "30","");
 
-            Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//table//td[contains(text(), '45:00 min/km')]")));
+            Assert.IsNotNull(new PaceCalculatorFrame().GetPaceTableElement("45:00 min/km"));
         }
 
         [Test]
@@ -44,8 +43,8 @@ namespace Finalsurge.Tests
 
             UISteps.GoToPaceCalculator(user).
                 FillPaceCalcFieldsWithRaceDist("Marathon", "4", "0", "30");
-            
-            Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//table//td[contains(text(), '0:34 min/100m')]")));
+
+            Assert.IsNotNull(new PaceCalculatorFrame().GetPaceTableElement("0:34 min/100m"));
         }
 
         [Test]

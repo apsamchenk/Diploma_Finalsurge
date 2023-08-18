@@ -3,7 +3,6 @@ using BusinessObjects;
 using BusinessObjects.Pages;
 using Core;
 using BusinessObjects.Enums;
-using OpenQA.Selenium;
 using Allure.Commons;
 using NUnit.Allure.Attributes;
 using BusinessObjects.Steps;
@@ -27,7 +26,7 @@ namespace Finalsurge.Tests
             UISteps.GoToCaloricCalculator(user).
                 FillCaloricCalcFields("65", "170", "30", "5", WeightType.kg, HeightType.centimeters, GenderType.female, DistanceType.km);
 
-            Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//table//td[contains(text(), '2,009 kCal')]")));
+            Assert.IsNotNull(new CaloricCalculatorFrame().GetCalocricTableElement("2,009 kCal"));
         }
 
         [Test]
@@ -45,7 +44,7 @@ namespace Finalsurge.Tests
             UISteps.GoToCaloricCalculator(user).
                 FillCaloricCalcFields("65", "170", "30", "5", WeightType.kg, HeightType.centimeters, GenderType.male, DistanceType.km);
 
-            Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//table//td[contains(text(), '2,208 kCal')]")));
+            Assert.IsNotNull(new CaloricCalculatorFrame().GetCalocricTableElement("2,208 kCal"));
         }
 
         [Test]

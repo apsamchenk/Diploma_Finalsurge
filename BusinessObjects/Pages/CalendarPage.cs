@@ -65,5 +65,11 @@ namespace BusinessObjects.Pages
             activityActions.SelectOptionFromActivityMenu(day,"quick-delete");
             return new DeleteActivityModal();
         }
+
+        public IWebElement FindActivity(string day, string month, string year, string title)
+        {
+            existingActivity = new(day, month, year, title);
+            return existingActivity.GetElement();
+        }
     }
 }

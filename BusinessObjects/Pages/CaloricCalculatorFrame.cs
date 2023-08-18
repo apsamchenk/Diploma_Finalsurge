@@ -3,6 +3,7 @@ using Core;
 using BusinessObjects.Enums;
 using NLog;
 using NUnit.Allure.Attributes;
+using OpenQA.Selenium;
 
 namespace BusinessObjects.Pages
 {
@@ -25,6 +26,8 @@ namespace BusinessObjects.Pages
         private Button calculateButton = new("Calculate Caloric Needs");
 
         private AlertMessage alertMessage = new();
+
+        private TableElement caloricTableElement;
 
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -69,6 +72,12 @@ namespace BusinessObjects.Pages
             var mes = alertMessage.GetElement().Text;
             logger.Info($"Alert message: {mes}");
             return mes;
+        }
+
+        public IWebElement GetCalocricTableElement(string value)
+        {
+            caloricTableElement = new(value);
+            return caloricTableElement.GetElement();
         }
     }
 }
