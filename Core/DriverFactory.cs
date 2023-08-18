@@ -11,8 +11,9 @@ namespace Core
         {
             ChromeOptions options = new ChromeOptions();
 
-            if (AppConfiguration.Browser.Headless) 
-            //options.AddArgument("--headless");
+            if (AppConfiguration.Browser.Headless)
+            options.AddArgument("--window-size=1920, 1080");
+            options.AddArgument("--headless");
             options.AddArgument("--disable-gpu");
             options.AddArgument("incognito");
             options.AddArgument("--start-maximized");

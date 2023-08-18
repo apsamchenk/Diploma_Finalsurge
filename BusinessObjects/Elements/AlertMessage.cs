@@ -7,5 +7,9 @@ namespace BusinessObjects.Elements
         public AlertMessage(By locator) : base(locator)
         {
         }
+
+        public AlertMessage() : base($"//*[contains(@class, 'alert')]")
+        {
+        }
     }
 }

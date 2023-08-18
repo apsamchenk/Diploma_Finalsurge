@@ -8,14 +8,12 @@ namespace BusinessObjects.Elements
         {
         }
 
-        public Input(string name) : base($"//label[text()='{name}']/following::div/input")
+        public Input(string name) : base($"//input[@name='{name}']")
         {
         }
 
-        public void Select(string option)
+        public Input(string activityId, string inputId) : base($"//*[@id='{activityId}']//*[@id='{inputId}']")
         {
-            WebDriver.FindElement(locator).Click();
-            WebDriver.FindElement(By.XPath($"//*[@title='{option}']")).Click();
         }
     }
 }
