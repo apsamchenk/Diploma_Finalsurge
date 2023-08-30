@@ -1,0 +1,37 @@
+# Universal Windows Platform
+# Build a Universal Windows Platform project using Visual Studio.
+# Add steps that test and distribute an app, save build artifacts, and more:
+# https://aka.ms/yaml
+
+trigger:
+- feature/allure
+
+pool:
+  name: 'FinalsurgePool'
+
+steps:
+- task: NuGetToolInstaller@0
+  displayName: 'Use NuGet 6.x'
+  inputs:
+    versionSpec: 6.x
+
+- task: NuGetCommand@2
+  displayName: 'Restore nuget package for solution'
+  inputs:
+    command: 'restore'
+    restoreSolution: '**/*.sln'
+
+- task: VSBuild@1
+  displayName: 'Build solution'
+  inputs:
+    solution: '**\*.sln'
+    vsVersion: '17.0'
+
+- task: VSTest@3
+  displayName: 'Run tests'
+  inputs:
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\Finalsurge.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
